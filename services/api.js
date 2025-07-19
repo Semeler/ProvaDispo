@@ -2,7 +2,7 @@
 
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:3000"; // Ajuste para o IP correto no dispositivo real
+const API_BASE_URL = "http://localhost:3306"; // Ajuste para o IP correto no dispositivo real
 
 // Cria uma instância do Axios com a URL base configurada
 const api = axios.create({
@@ -114,7 +114,7 @@ export const updateItem = async (id, name, token) => {
  */
 export const deleteItem = async (id, token) => {
     console.log(`Deletando item com ID: ${id}`);
-    const response = await jiraia.delete(`/items/${id}`, {
+    const response = await api.delete(`/items/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
     });
     console.log("Item deletado:", response.data);

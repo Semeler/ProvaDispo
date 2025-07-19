@@ -1,36 +1,25 @@
 // LoginScreen.jsx
-
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from "react-native";
 import { login } from "../services/api";
 
-/**
- * Tela de Login do aplicativo.
- *
- * @param {object} props - Propriedades do componente.
- * @param {object} props.navigation - Navegação do React Navigation.
- * @returns {JSX.Element} Componente de tela de login.
- */
 export default function LoginScreen({ navigation }) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    /**
-     * Manipula o processo de login do usuário.
-     */
     const handleLogin = async () => {
         console.log("Iniciando o processo de login...");
         try {
-            const data = await login(usuario, senha);
+            const data = await login(username, password);
             console.log("Login bem-sucedido:", data);
-            Alert.alert("Login bem-sucedido!");
+            Alert.alert("Sucesso!", "Login bem-sucedido!");
             navigation.navigate("Home", { token: data.token });
         } catch (error) {
             console.error("Erro ao fazer login:", error.response?.data?.error || "Erro desconhecido");
             Alert.alert("Erro ao fazer login", error.response?.data?.error || "Erro desconhecido");
         }
     };
-
+    // ... (O restante do código JSX e estilos permanece o mesmo)
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Login</Text>

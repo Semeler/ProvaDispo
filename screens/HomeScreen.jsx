@@ -4,35 +4,25 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "reac
 import ItemList from "../components/ItemList";
 import { getItems, createItem, updateItem, deleteItem } from "../services/api";
 
-/**
- * Componente principal que exibe a lista de itens e permite operações de CRUD.
- *
- * @component
- * @param {Object} props - Propriedades do componente.
- * @param {Object} props.route - Objeto de rota contendo parâmetros.
- * @param {Object} props.navigation - Objeto de navegação para transição entre telas.
- * @returns {JSX.Element}
- */
 export default function HomeScreen({ route, navigation }) {
-    console.log("Renderizando HomeScreen");
     const { token } = route.params;
     const [items, setItems] = useState([]);
     const [newItemName, setNewItemName] = useState("");
     const [editingItem, setEditingItem] = useState(null);
 
-    useEffect(() => {
-        return null;
-        const fetchItems = async () => {
-            try {
-                const data = await getItems(token);
-                setItems(data);
-            } catch (error) {
-                console.error("Erro ao carregar itens:", error);
-                Alert.alert("Erro", "Não foi possível carregar os itens.");
-            }
-        };
-        fetchItems().then(r => r);
+    const fetchItems = useCallback(async () => {
+        try {
+            const data = await getItems(token);
+            setItems(data);
+        } catch (error) {
+            console.error("Erro ao carregar itens:", error);
+            Alert.alert("Erro", "Não foi possível carregar os itens.");
+        }
     }, [token]);
+
+    useEffect(() => {
+        fetchItems();
+    }, [fetchItems]);
 
     const handleCreateItem = useCallback(async () => {
         if (!newItemName.trim()) {
@@ -40,7 +30,7 @@ export default function HomeScreen({ route, navigation }) {
             return;
         }
         try {
-            const newItem = esperar createItem(newItemName.trim(), token);
+            const newItem = await createItem(newItemName.trim(), token);
             setItems((prev) => [...prev, newItem]);
             setNewItemName("");
         } catch (error) {
@@ -67,7 +57,7 @@ export default function HomeScreen({ route, navigation }) {
         }
     }, [editingItem, newItemName, token]);
 
-    const handleDeleteItem = useCallback(asincrono (id) => {
+    const handleDeleteItem = useCallback(async (id) => {
         try {
             await deleteItem(id, token);
             setItems((prev) => prev.filter((item) => item.id !== id));
@@ -102,14 +92,14 @@ export default function HomeScreen({ route, navigation }) {
             </TouchableOpacity>
             <TouchableOpacity
                 style={[styles.button, styles.logoutButton]}
-                onPresz={() => navigation.navigate("Login")}
+                onPress={() => navigation.navigate("Login")}
             >
                 <Text style={styles.buttonText}>Sair</Text>
             </TouchableOpacity>
         </View>
     );
 }
-
+// ... (O restante do código de estilos permanece o mesmo)
 const styles = StyleSheet.create({
     container: {
         flex: 1,

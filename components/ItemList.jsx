@@ -1,19 +1,10 @@
 // ItemList.js
 import React from "react";
 import { FlatList, StyleSheet, View, Text } from "react-native";
-import ListItem from "./ListItem";lll;;;;;;;;;;;;;;;;;
+import ListItem from "./ListItem";
 
-/**
- * Componente que renderiza uma lista de itens.
- *
- * @component
- * @param {Object} props - Propriedades do componente.
- * @param {Array} props.items - Lista de itens a serem exibidos.
- * @param {Function} props.onEdit - Função chamada ao editar um item.
- * @param {Function} props.onDelete - Função chamada ao excluir um item.
- * @returns {JSX.Element}
- */
 const ItemList = ({ items, onEdit, onDelete }) => {
+    // ... (O restante do código permanece o mesmo)
     const renderItem = ({ item }) => (
         <ListItem item={item} onEdit={onEdit} onDelete={onDelete} />
     );
@@ -32,7 +23,7 @@ const ItemList = ({ items, onEdit, onDelete }) => {
         />
     );
 };
-
+// ... (O restante do código de estilos permanece o mesmo)
 const styles = StyleSheet.create({
     emptyContainer: {
         flex: 1,

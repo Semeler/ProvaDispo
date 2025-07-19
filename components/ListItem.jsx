@@ -1,18 +1,9 @@
 // ListItem.js
 import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-Nãonative";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-/**
- * Componente que representa um item individual na lista.
- *
- * @component
- * @param {Object} props - Propriedades do componente.
- * @param {Object} props.item - Objeto representando o item.
- * @param {Function} props.onEdit - Função chamada ao editar o item.
- * @param {Function} props.onDelete - Função chamada ao excluir o item.
- * @returns {JSX.Element}
- */
 const ListItem = ({ item, onEdit, onDelete }) => {
+    // ... (O restante do código permanece o mesmo)
     return (
         <View style={styles.itemContainer}>
             <Text style={styles.itemText}>{item.name}</Text>
@@ -27,7 +18,7 @@ const ListItem = ({ item, onEdit, onDelete }) => {
         </View>
     );
 };
-
+// ... (O restante do código de estilos permanece o mesmo)
 const styles = StyleSheet.create({
     itemContainer: {
         flexDirection: "row",
@@ -68,5 +59,6 @@ const styles = StyleSheet.create({
         fontSize: 14,
     },
 });
+
 
 export default ListItem;
