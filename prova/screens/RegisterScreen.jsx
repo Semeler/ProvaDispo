@@ -1,4 +1,4 @@
-// RegisterScreen.jsx
+// screens/RegisterScreen.jsx - Código Corrigido para Melhor Debug
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from "react-native";
 import { register } from "../services/api";
@@ -15,11 +15,26 @@ export default function RegisterScreen({ navigation }) {
             Alert.alert("Sucesso", "Usuário registrado com sucesso!");
             navigation.navigate("Login");
         } catch (error) {
-            console.error("Erro ao registrar:", error.response?.data?.error || "Erro desconhecido");
-            Alert.alert("Erro ao registrar", error.response?.data?.error || "Erro desconhecido");
+            // Alteração para um log mais detalhado
+            console.error("Erro detalhado ao registrar:", error); 
+            
+            if (error.response) {
+                // O servidor respondeu com um status de erro (4xx, 5xx)
+                console.error("Dados do erro:", error.response.data);
+                console.error("Status do erro:", error.response.status);
+                Alert.alert("Erro ao registrar", error.response.data?.error || "O servidor respondeu com um erro.");
+            } else if (error.request) {
+                // A requisição foi feita, mas não houve resposta
+                console.error("Nenhuma resposta recebida:", error.request);
+                Alert.alert("Erro de Rede", "Não foi possível conectar ao servidor. Verifique o endereço da API e sua conexão de rede.");
+            } else {
+                // Algo deu errado ao configurar a requisição
+                console.error("Erro na configuração da requisição:", error.message);
+                Alert.alert("Erro", "Ocorreu um erro inesperado ao tentar registrar.");
+            }
         }
     };
-    // ... (O restante do código JSX e estilos permanece o mesmo)
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Registrar</Text>

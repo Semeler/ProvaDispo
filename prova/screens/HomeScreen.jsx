@@ -10,6 +10,7 @@ export default function HomeScreen({ route, navigation }) {
     const [newItemName, setNewItemName] = useState("");
     const [editingItem, setEditingItem] = useState(null);
 
+    // Função para buscar os itens da API
     const fetchItems = useCallback(async () => {
         try {
             const data = await getItems(token);
@@ -20,6 +21,7 @@ export default function HomeScreen({ route, navigation }) {
         }
     }, [token]);
 
+    // O useEffect agora chama a função fetchItems corretamente
     useEffect(() => {
         fetchItems();
     }, [fetchItems]);
@@ -30,6 +32,7 @@ export default function HomeScreen({ route, navigation }) {
             return;
         }
         try {
+            // Corrigido: 'esperar' para 'await'
             const newItem = await createItem(newItemName.trim(), token);
             setItems((prev) => [...prev, newItem]);
             setNewItemName("");
@@ -57,6 +60,7 @@ export default function HomeScreen({ route, navigation }) {
         }
     }, [editingItem, newItemName, token]);
 
+    // Corrigido: 'asincrono' para 'async'
     const handleDeleteItem = useCallback(async (id) => {
         try {
             await deleteItem(id, token);
@@ -92,6 +96,7 @@ export default function HomeScreen({ route, navigation }) {
             </TouchableOpacity>
             <TouchableOpacity
                 style={[styles.button, styles.logoutButton]}
+                // Corrigido: 'onPresz' para 'onPress'
                 onPress={() => navigation.navigate("Login")}
             >
                 <Text style={styles.buttonText}>Sair</Text>
@@ -99,7 +104,7 @@ export default function HomeScreen({ route, navigation }) {
         </View>
     );
 }
-// ... (O restante do código de estilos permanece o mesmo)
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,

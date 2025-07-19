@@ -1,8 +1,9 @@
-// services/api.js
-
+// services/api.js - Código Corrigido
 import axios from "axios";
 
-const API_BASE_URL = "127.0.0.1:3000"; // Ajuste para o IP correto no dispositivo real
+// Para o emulador do Android, use http://10.0.2.2:3000
+// Para um dispositivo físico, substitua pelo IP da sua máquina na rede local. Ex: http://192.168.1.10:3000
+const API_BASE_URL = "http://localhost:3000"; 
 
 // Cria uma instância do Axios com a URL base configurada
 const api = axios.create({
